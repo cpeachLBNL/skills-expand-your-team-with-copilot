@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import RedirectResponse
 from typing import Dict, Any, Optional, List
 
-from ..database import activities_collection, teachers_collection
+from ..database import activities_collection, teachers_collection, initial_activities
 
 router = APIRouter(
     prefix="/activities",
@@ -38,27 +38,66 @@ def get_activities(
     if end_time:
         query["schedule_details.end_time"] = {"$lte": end_time}
     
-    # Query the database
+    # Query the database or use fallback data
     activities = {}
-    for activity in activities_collection.find(query):
-        name = activity.pop('_id')
-        activities[name] = activity
+    
+    if activities_collection is None:
+        # Use fallback data when MongoDB is not available
+        activities = initial_activities.copy()
+        
+        # Apply filters if specified
+        if day or start_time or end_time:
+            filtered_activities = {}
+            for name, details in activities.items():
+                include_activity = True
+                
+                if day and "schedule_details" in details:
+                    if day not in details["schedule_details"]["days"]:
+                        include_activity = False
+                
+                if start_time and "schedule_details" in details:
+                    if details["schedule_details"]["start_time"] < start_time:
+                        include_activity = False
+                
+                if end_time and "schedule_details" in details:
+                    if details["schedule_details"]["end_time"] > end_time:
+                        include_activity = False
+                
+                if include_activity:
+                    filtered_activities[name] = details
+            
+            activities = filtered_activities
+    else:
+        # Use MongoDB query
+        for activity in activities_collection.find(query):
+            name = activity.pop('_id')
+            activities[name] = activity
     
     return activities
 
 @router.get("/days", response_model=List[str])
 def get_available_days() -> List[str]:
     """Get a list of all days that have activities scheduled"""
-    # Aggregate to get unique days across all activities
-    pipeline = [
-        {"$unwind": "$schedule_details.days"},
-        {"$group": {"_id": "$schedule_details.days"}},
-        {"$sort": {"_id": 1}}  # Sort days alphabetically
-    ]
     
     days = []
-    for day_doc in activities_collection.aggregate(pipeline):
-        days.append(day_doc["_id"])
+    
+    if activities_collection is None:
+        # Use fallback data when MongoDB is not available
+        unique_days = set()
+        for activity in initial_activities.values():
+            if "schedule_details" in activity and "days" in activity["schedule_details"]:
+                unique_days.update(activity["schedule_details"]["days"])
+        days = sorted(list(unique_days))
+    else:
+        # Aggregate to get unique days across all activities
+        pipeline = [
+            {"$unwind": "$schedule_details.days"},
+            {"$group": {"_id": "$schedule_details.days"}},
+            {"$sort": {"_id": 1}}  # Sort days alphabetically
+        ]
+        
+        for day_doc in activities_collection.aggregate(pipeline):
+            days.append(day_doc["_id"])
     
     return days
 
