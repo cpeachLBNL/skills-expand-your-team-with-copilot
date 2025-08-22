@@ -3,13 +3,28 @@ MongoDB database configuration and setup for Mergington High School API
 """
 
 from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
 from argon2 import PasswordHasher
+import logging
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['mergington_high']
-activities_collection = db['activities']
-teachers_collection = db['teachers']
+logger = logging.getLogger(__name__)
+
+# Connect to MongoDB with timeout
+try:
+    client = MongoClient('mongodb://localhost:27017/', serverSelectionTimeoutMS=5000)
+    # Test connection
+    client.admin.command('ping')
+    db = client['mergington_high']
+    activities_collection = db['activities']
+    teachers_collection = db['teachers']
+    logger.info("Successfully connected to MongoDB")
+except (ServerSelectionTimeoutError, Exception) as e:
+    logger.warning(f"MongoDB not available: {e}. Using fallback data structure.")
+    # Fallback to in-memory data structure for development/testing
+    activities_collection = None
+    teachers_collection = None
+    client = None
+    db = None
 
 # Methods
 def hash_password(password):
@@ -19,6 +34,10 @@ def hash_password(password):
 
 def init_database():
     """Initialize database if empty"""
+    
+    if activities_collection is None or teachers_collection is None:
+        logger.warning("MongoDB not available. Skipping database initialization.")
+        return
 
     # Initialize activities if empty
     if activities_collection.count_documents({}) == 0:
@@ -163,6 +182,17 @@ initial_activities = {
         },
         "max_participants": 16,
         "participants": ["william@mergington.edu", "jacob@mergington.edu"]
+    },
+    "Manga Maniacs": {
+        "description": "Explore the fantastic stories of the most interesting characters from Japanese Manga (graphic novels).",
+        "schedule": "Tuesdays, 7:00 PM - 8:00 PM",
+        "schedule_details": {
+            "days": ["Tuesday"],
+            "start_time": "19:00",
+            "end_time": "20:00"
+        },
+        "max_participants": 15,
+        "participants": []
     }
 }
 
