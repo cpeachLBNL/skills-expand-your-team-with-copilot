@@ -1,0 +1,152 @@
+name: Student Management Request
+description: Request bulk student registration/unregistration operations
+title: "[STUDENT MGMT] "
+labels: ["enhancement", "student-management"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Student Management Operations
+        
+        Use this form to request bulk student operations like registering multiple students for activities or generating reports.
+
+  - type: dropdown
+    id: operation-type
+    attributes:
+      label: Type of Operation
+      description: What kind of student management operation do you need?
+      options:
+        - Bulk register students for an activity
+        - Bulk unregister students from an activity
+        - Move students from one activity to another
+        - Generate participation report
+        - Generate activity capacity report
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target-activity
+    attributes:
+      label: Target Activity (if applicable)
+      description: Which activity is this operation for?
+      options:
+        - Art Club
+        - Chess Club
+        - Programming Class
+        - Morning Fitness
+        - Math Club
+        - Debate Team
+        - Science Olympiad
+        - Weekend Robotics Workshop
+        - All activities
+        - Other (specify below)
+
+  - type: textarea
+    id: student-list
+    attributes:
+      label: Student Email List (if applicable)
+      description: List the student email addresses, one per line
+      placeholder: |
+        student1@mergington.edu
+        student2@mergington.edu
+        student3@mergington.edu
+
+  - type: dropdown
+    id: source-activity
+    attributes:
+      label: Source Activity (for transfers)
+      description: If moving students between activities, what's the source activity?
+      options:
+        - Not applicable
+        - Art Club
+        - Chess Club
+        - Programming Class
+        - Morning Fitness
+        - Math Club
+        - Debate Team
+        - Science Olympiad
+        - Weekend Robotics Workshop
+
+  - type: dropdown
+    id: report-format
+    attributes:
+      label: Report Format (for reports)
+      description: What format would you like for reports?
+      options:
+        - Not applicable
+        - Simple text summary
+        - CSV file
+        - HTML table
+        - JSON data
+
+  - type: checkboxes
+    id: report-details
+    attributes:
+      label: Report Details (for reports)
+      description: What information should be included in reports?
+      options:
+        - label: Student names and emails
+        - label: Activity participation counts
+        - label: Activities with available spots
+        - label: Activities that are full
+        - label: Students not registered for any activities
+        - label: Teacher sponsors for each activity
+
+  - type: textarea
+    id: specific-requirements
+    attributes:
+      label: Specific Requirements
+      description: Describe exactly what you need done
+      placeholder: Provide detailed instructions for the operation you're requesting
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline (if applicable)
+      description: When do you need this completed?
+      placeholder: e.g., "Before next Monday", "ASAP", "End of week"
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information?
+      placeholder: Why this operation is needed, any special considerations, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Notes for Developer
+        
+        **Acceptance Criteria for Bulk Operations:**
+        - [ ] Create appropriate API endpoints or utility functions for bulk operations
+        - [ ] Implement proper error handling for invalid student emails or full activities
+        - [ ] Provide clear feedback on successful and failed operations
+        - [ ] Ensure operations respect activity capacity limits
+        - [ ] Log all bulk operations for audit purposes
+        
+        **Acceptance Criteria for Reports:**
+        - [ ] Generate accurate reports based on current data
+        - [ ] Format reports in the requested format
+        - [ ] Include all requested information
+        - [ ] Ensure reports are accessible to teachers
+        - [ ] Consider adding a web interface for downloading reports
+        
+        **Technical Implementation:**
+        - For bulk operations, consider adding new endpoints in `src/backend/routers/activities.py`
+        - Use existing authentication mechanisms to ensure only teachers can perform bulk operations
+        - For reports, consider adding a new router or extending existing endpoints
+        - Implement proper error handling and validation
+        - Consider adding progress indicators for large operations
+        
+        **Testing:**
+        - Test with various student email lists (valid/invalid emails)
+        - Verify capacity limits are respected
+        - Test error conditions (activity not found, duplicate registrations)
+        - For reports, verify accuracy against known data
+        - Test with different user roles (teacher vs. non-teacher)

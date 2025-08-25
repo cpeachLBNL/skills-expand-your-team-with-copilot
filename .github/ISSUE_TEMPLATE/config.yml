@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Development Guide
+    url: https://github.com/cpeachLBNL/skills-expand-your-team-with-copilot/blob/main/docs/how-to-develop.md
+    about: Learn how to set up and develop the activities system
+  - name: 💬 Ask for Help
+    url: https://github.com/cpeachLBNL/skills-expand-your-team-with-copilot/discussions
+    about: Ask questions or start a discussion about the project

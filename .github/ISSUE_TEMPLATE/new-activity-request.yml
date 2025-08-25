@@ -1,0 +1,124 @@
+name: New Activity Request
+description: Request to add a new extracurricular activity to the system
+title: "[NEW ACTIVITY] Add: "
+labels: ["enhancement", "new-activity"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Adding a New Activity
+        
+        Use this form to request a new extracurricular activity be added to the Mergington High School system. Please provide complete information so our coding assistant can implement this without additional questions.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: What is the name of the new activity?
+      placeholder: e.g., "Robotics Club", "Spanish Language Club", "Track and Field"
+    validations:
+      required: true
+
+  - type: textarea
+    id: activity-description
+    attributes:
+      label: Activity Description
+      description: Provide a detailed description of what this activity involves
+      placeholder: Describe what students will do in this activity, skills they'll learn, and any special features
+    validations:
+      required: true
+
+  - type: dropdown
+    id: activity-type
+    attributes:
+      label: Activity Category
+      description: What type of activity is this?
+      options:
+        - Sports
+        - Arts
+        - Academic
+        - Community
+        - Technology
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: schedule-days
+    attributes:
+      label: Meeting Days
+      description: Which days will this activity meet?
+      options:
+        - label: Monday
+        - label: Tuesday
+        - label: Wednesday
+        - label: Thursday
+        - label: Friday
+        - label: Saturday
+        - label: Sunday
+
+  - type: input
+    id: start-time
+    attributes:
+      label: Start Time
+      description: What time does the activity start? (Use 24-hour format, e.g., 15:30 for 3:30 PM)
+      placeholder: "15:30"
+    validations:
+      required: true
+
+  - type: input
+    id: end-time
+    attributes:
+      label: End Time
+      description: What time does the activity end? (Use 24-hour format, e.g., 17:00 for 5:00 PM)
+      placeholder: "17:00"
+    validations:
+      required: true
+
+  - type: input
+    id: max-participants
+    attributes:
+      label: Maximum Participants
+      description: How many students can participate in this activity?
+      placeholder: "20"
+    validations:
+      required: true
+
+  - type: input
+    id: teacher-sponsor
+    attributes:
+      label: Teacher Sponsor
+      description: Which teacher will be responsible for this activity?
+      placeholder: e.g., "Ms. Rodriguez", "Mr. Chen"
+
+  - type: textarea
+    id: special-requirements
+    attributes:
+      label: Special Requirements or Notes
+      description: Any special equipment, location requirements, or other important details?
+      placeholder: Special equipment needed, location preferences, prerequisites, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Notes for Developer
+        
+        **Acceptance Criteria:**
+        - [ ] Add the new activity to the `initial_activities` dictionary in `src/backend/database.py`
+        - [ ] Ensure the activity appears in the web interface at `http://localhost:8000`
+        - [ ] Verify the activity can be filtered by category
+        - [ ] Test that students can be registered/unregistered for the activity
+        - [ ] Ensure schedule displays correctly in both 12-hour and 24-hour formats
+        
+        **Technical Details:**
+        - The activity should be added to the `initial_activities` dictionary following the existing structure
+        - Use the provided category to ensure proper filtering works
+        - Include both `schedule` (human-readable) and `schedule_details` (structured) fields
+        - Initialize with an empty `participants` array
+        
+        **Testing:**
+        - Start the application with `python app.py`
+        - Verify the new activity appears in the activities list
+        - Test teacher login and student registration functionality
+        - Check that the activity appears in the correct category filter

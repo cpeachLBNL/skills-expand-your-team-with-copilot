@@ -1,0 +1,173 @@
+name: Bug Report
+description: Report a problem or issue with the activities system
+title: "[BUG] "
+labels: ["bug"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+        
+        Found a problem with the Mergington High School Activities system? Use this form to report it with all the details our coding assistant needs to fix it.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What happened?
+      description: Describe the problem you encountered
+      placeholder: Clearly describe what went wrong
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What did you expect to happen?
+      description: Describe what you thought should happen instead
+      placeholder: Describe the expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: List the exact steps to reproduce this problem
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. Type...
+        4. See error...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bug-area
+    attributes:
+      label: What part of the system has the problem?
+      description: Select the area where you encountered the bug
+      options:
+        - Student registration
+        - Student unregistration
+        - Activity display/listing
+        - Teacher login
+        - Activity filtering
+        - Activity search
+        - User interface
+        - Schedule display
+        - Participant lists
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: What browser are you using?
+      description: Select your web browser
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other (specify below)
+
+  - type: dropdown
+    id: device-type
+    attributes:
+      label: What device are you using?
+      description: Select your device type
+      options:
+        - Desktop computer
+        - Laptop
+        - Tablet
+        - Phone
+        - Other
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      description: Select how frequently you encounter this problem
+      options:
+        - Always (100% of the time)
+        - Often (more than 50% of the time)
+        - Sometimes (less than 50% of the time)
+        - Rarely (only happened once or twice)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How severe is this problem?
+      description: Select the impact level
+      options:
+        - Critical (system unusable, affects many users)
+        - High (major functionality broken)
+        - Medium (some functionality affected)
+        - Low (minor inconvenience)
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-messages
+    attributes:
+      label: Error Messages
+      description: Copy any error messages you see
+      placeholder: Paste exact error messages here (if any)
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information?
+      placeholder: Screenshots, specific activities involved, number of students affected, etc.
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Who is affected by this bug?
+      description: Select all that apply
+      options:
+        - label: Students trying to view activities
+        - label: Teachers trying to register students
+        - label: Teachers trying to unregister students
+        - label: Teachers trying to log in
+        - label: Anyone using the system
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Notes for Developer
+        
+        **Acceptance Criteria:**
+        - [ ] Reproduce the bug following the provided steps
+        - [ ] Identify the root cause of the issue
+        - [ ] Implement a fix that resolves the problem
+        - [ ] Verify the fix doesn't break other functionality
+        - [ ] Test the fix in the reported browser/device if possible
+        - [ ] Add appropriate error handling if missing
+        
+        **Investigation Steps:**
+        - Check browser console for JavaScript errors
+        - Review FastAPI logs for server-side errors
+        - Test with different user roles (teacher vs. student view)
+        - Verify database operations are working correctly
+        - Check network requests in browser dev tools
+        
+        **Testing Priority:**
+        - Focus on the specific steps to reproduce
+        - Test with the reported browser if possible
+        - Verify related functionality still works
+        - Test with both valid and invalid data
+        - Consider edge cases similar to the reported scenario
+        
+        **Files to Check:**
+        - `src/static/app.js` - Frontend JavaScript
+        - `src/backend/routers/activities.py` - API endpoints
+        - `src/backend/database.py` - Database operations
+        - `src/static/index.html` - HTML structure
+        - `src/static/style.css` - Styling issues
