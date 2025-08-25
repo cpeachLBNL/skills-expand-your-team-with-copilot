@@ -1,0 +1,185 @@
+name: Feature Request
+description: Request a new feature or functionality for the activities system
+title: "[FEATURE] "
+labels: ["enhancement", "feature-request"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        
+        Have an idea for improving the Mergington High School Activities system? Use this form to request new features with all the details needed for implementation.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Describe the new feature you'd like to see
+      placeholder: What new functionality do you want?
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-solving
+    attributes:
+      label: What problem does this solve?
+      description: Explain why this feature is needed
+      placeholder: What current pain point or limitation would this address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: Describe how users would interact with this feature
+      placeholder: "As a [teacher/student], I want to [do something] so that [benefit]"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What type of feature is this?
+      options:
+        - Student management
+        - Activity management
+        - Reporting and analytics
+        - User interface improvement
+        - Authentication and security
+        - Communication/notifications
+        - Data import/export
+        - Search and filtering
+        - Mobile responsiveness
+        - Accessibility
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user-type
+    attributes:
+      label: Primary User
+      description: Who would primarily use this feature?
+      options:
+        - Teachers
+        - Students
+        - Administrators
+        - All users
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature?
+      options:
+        - Critical (urgently needed)
+        - High (would significantly improve workflow)
+        - Medium (nice to have, moderate impact)
+        - Low (minor improvement)
+    validations:
+      required: true
+
+  - type: textarea
+    id: detailed-requirements
+    attributes:
+      label: Detailed Requirements
+      description: List specific requirements for this feature
+      placeholder: |
+        - Requirement 1
+        - Requirement 2
+        - Requirement 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-implementation
+    attributes:
+      label: Suggested Implementation
+      description: Do you have ideas for how this could be implemented?
+      placeholder: Any technical suggestions, UI mockups, or implementation ideas
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How will we know this feature is working correctly?
+      placeholder: What should be possible after this feature is implemented?
+
+  - type: checkboxes
+    id: related-features
+    attributes:
+      label: Related Areas
+      description: What parts of the system might this feature interact with?
+      options:
+        - label: Activity registration/unregistration
+        - label: User authentication
+        - label: Activity filtering and search
+        - label: Student data management
+        - label: Teacher dashboard
+        - label: Activity scheduling
+        - label: Reporting system
+        - label: User interface/design
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or Use Cases
+      description: Provide specific examples of how this feature would be used
+      placeholder: Give concrete scenarios where this feature would be helpful
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Desired Timeline
+      description: When would you like this feature implemented?
+      placeholder: e.g., "Before next semester", "No rush", "ASAP"
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information?
+      placeholder: Similar features in other systems, research you've done, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Notes for Developer
+        
+        **Acceptance Criteria:**
+        - [ ] Analyze the feature requirements and break them down into tasks
+        - [ ] Design the feature to integrate well with existing code
+        - [ ] Implement the feature following the detailed requirements
+        - [ ] Create appropriate user interface elements
+        - [ ] Add proper error handling and validation
+        - [ ] Test the feature thoroughly with various scenarios
+        - [ ] Ensure the feature works for the specified user type(s)
+        - [ ] Verify the success criteria are met
+        
+        **Design Considerations:**
+        - Follow the existing UI patterns and styling in the application
+        - Ensure the feature is accessible and user-friendly
+        - Consider mobile responsiveness if applicable
+        - Maintain consistency with existing workflows
+        - Think about error cases and edge conditions
+        
+        **Technical Implementation:**
+        - Backend changes may require updates to `src/backend/routers/activities.py`
+        - Database schema changes should be made in `src/backend/database.py`
+        - Frontend changes should be made in `src/static/app.js` and related files
+        - Follow existing patterns for API endpoints and data structures
+        - Consider performance implications for large datasets
+        
+        **Testing Requirements:**
+        - Test with different user roles (teacher, student, admin)
+        - Verify integration with existing features
+        - Test error conditions and edge cases
+        - Ensure the feature meets all specified requirements
+        - Validate that existing functionality is not broken

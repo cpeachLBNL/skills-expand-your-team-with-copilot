@@ -1,0 +1,204 @@
+name: UI/UX Improvement Request
+description: Request improvements to the user interface or user experience
+title: "[UI/UX] "
+labels: ["enhancement", "ui-ux"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## User Interface / User Experience Improvement
+        
+        Request improvements to make the activities system easier and more pleasant to use. Focus on visual design, user interactions, and overall usability.
+
+  - type: textarea
+    id: current-issue
+    attributes:
+      label: Current UI/UX Issue
+      description: What specific interface or experience problem needs fixing?
+      placeholder: Describe what's currently difficult, confusing, or unpleasant to use
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-improvement
+    attributes:
+      label: Proposed Improvement
+      description: How would you like the interface to work instead?
+      placeholder: Describe your vision for a better user experience
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ui-area
+    attributes:
+      label: Which area needs improvement?
+      description: Select the part of the interface that needs work
+      options:
+        - Overall layout and design
+        - Activity cards and listings
+        - Registration modal/form
+        - Teacher login interface
+        - Filter and search controls
+        - Navigation and menus
+        - Mobile responsiveness
+        - Color scheme and typography
+        - Button and form styling
+        - Error messages and feedback
+        - Loading states and animations
+        - Accessibility features
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device-focus
+    attributes:
+      label: Device Focus
+      description: Which devices should this improvement prioritize?
+      options:
+        - Desktop computers
+        - Mobile phones
+        - Tablets
+        - All devices equally
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: improvement-type
+    attributes:
+      label: Type of Improvement
+      description: What kind of changes are you looking for?
+      options:
+        - label: Visual design (colors, fonts, spacing)
+        - label: Layout and organization
+        - label: Interactive elements (buttons, forms)
+        - label: Information display and clarity
+        - label: Navigation and user flow
+        - label: Accessibility features
+        - label: Mobile optimization
+        - label: Performance and loading
+        - label: Error handling and feedback
+
+  - type: dropdown
+    id: target-users
+    attributes:
+      label: Target Users
+      description: Which users would benefit most from this improvement?
+      options:
+        - Teachers primarily
+        - Students primarily
+        - Both teachers and students
+        - Administrators
+        - All users
+    validations:
+      required: true
+
+  - type: textarea
+    id: specific-changes
+    attributes:
+      label: Specific Changes Requested
+      description: List the exact changes you'd like to see
+      placeholder: |
+        - Change X to Y
+        - Add Z feature
+        - Improve A by doing B
+    validations:
+      required: true
+
+  - type: textarea
+    id: inspiration
+    attributes:
+      label: Design Inspiration or Examples
+      description: Any websites, apps, or designs that inspire this request?
+      placeholder: Links, descriptions, or references to good examples
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How urgent is this improvement?
+      options:
+        - High (significantly impacts usability)
+        - Medium (noticeable improvement needed)
+        - Low (nice-to-have enhancement)
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-feedback
+    attributes:
+      label: User Feedback
+      description: What have users said about the current interface?
+      placeholder: Comments from teachers, students, or other users about the current design
+
+  - type: textarea
+    id: accessibility-concerns
+    attributes:
+      label: Accessibility Considerations
+      description: Any specific accessibility needs to address?
+      placeholder: Vision, hearing, motor, or cognitive accessibility requirements
+
+  - type: checkboxes
+    id: browser-testing
+    attributes:
+      label: Browser Testing Required
+      description: Which browsers should this improvement be tested in?
+      options:
+        - label: Chrome
+        - label: Firefox
+        - label: Safari
+        - label: Edge
+        - label: Mobile browsers
+
+  - type: textarea
+    id: success-metrics
+    attributes:
+      label: Success Criteria
+      description: How will we know this improvement is successful?
+      placeholder: What should be easier, faster, or more pleasant after the changes?
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Implementation Notes for Developer
+        
+        **Acceptance Criteria:**
+        - [ ] Analyze the current UI/UX issue in detail
+        - [ ] Implement the requested visual and interaction improvements
+        - [ ] Ensure changes work across specified devices and browsers
+        - [ ] Maintain or improve accessibility features
+        - [ ] Test the improvements with the target user group in mind
+        - [ ] Verify that the changes meet the success criteria
+        - [ ] Ensure existing functionality is preserved
+        
+        **Design Guidelines:**
+        - Follow modern web design best practices
+        - Maintain consistency with existing design patterns
+        - Consider the school environment and user technical skill levels
+        - Prioritize clarity and ease of use over complex features
+        - Ensure good color contrast and readable fonts
+        - Use familiar UI patterns that users expect
+        
+        **Technical Implementation:**
+        - Primary files to modify: `src/static/style.css` for styling
+        - May need updates to `src/static/index.html` for structure changes
+        - JavaScript changes in `src/static/app.js` for interactive improvements
+        - Consider CSS framework usage vs. custom styles
+        - Optimize for performance (minimize CSS/JS bloat)
+        
+        **Testing Requirements:**
+        - Test on different screen sizes and devices
+        - Verify accessibility with screen readers and keyboard navigation
+        - Check color contrast and readability
+        - Test with users who have varying technical abilities
+        - Ensure cross-browser compatibility
+        - Validate that improvements don't break existing functionality
+        
+        **Responsive Design:**
+        - Ensure layouts work on mobile phones (320px+)
+        - Test on tablets (768px+) and desktops (1024px+)
+        - Consider touch-friendly interface elements
+        - Optimize text size and button spacing for mobile
